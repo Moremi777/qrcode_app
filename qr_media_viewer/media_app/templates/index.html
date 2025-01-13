@@ -118,12 +118,22 @@
         .qr-share button:hover {
             background-color: #c0392b;
         }
-        .footer {
+        /* Footer Styles */
+        footer {
             background-color: #2c3e50;
-            color: #fff;
+            color: white;
             text-align: center;
-            padding: 15px;
+            padding: 15px 0;
             margin-top: 30px;
+        }
+        footer nav a {
+            color: #bdc3c7;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer nav a:hover {
+            color: #ffffff;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -165,10 +175,14 @@
 
     </div>
 
-    <div class="footer">
-        <p>&copy; 2025 QR-Media. All rights reserved.</p>
-        <p> Created by Olebogeng </p>
-    </div>
+    <footer>
+        <p>&copy; 2025 Media Display. All Rights Reserved.</p>
+        <nav>
+            <a href="#">Olebogeng Moremi</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </nav>
+    </footer>
 
     <script>
         function shareQRCode() {
