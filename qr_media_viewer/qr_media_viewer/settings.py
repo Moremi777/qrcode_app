@@ -83,12 +83,16 @@ WSGI_APPLICATION = 'qr_media_viewer.wsgi.application'
 import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),  # Render sets this environment variable
-        conn_max_age=600,                   # Keeps connections alive
-        ssl_require=True                    # Ensures secure database connections
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'qr-media',
+        'USER': 'olebogeng',
+        'PASSWORD': 'QvJpQexQK4c0lae1sWHbXd1uHqUGSwIV',
+        'HOST': 'dpg-cu2nmnpopnds73f1u4p0-a',
+        'PORT': '5432',
+    }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
