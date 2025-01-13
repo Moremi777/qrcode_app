@@ -108,12 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-from decouple import config
-
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
