@@ -28,9 +28,9 @@ BASE_URL = "http://127.0.0.1:8000"  # Adjust if necessary for deployment
 SECRET_KEY = 'django-insecure-s%2he=yt^2hk_f1-gsac9krl3il(e(c5l+#mv29r&0*e(zg8+s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'https://qr-media.onrender.com']
 
 
 # Application definition
@@ -80,17 +80,11 @@ WSGI_APPLICATION = 'qr_media_viewer.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
 import dj_database_url
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'qr-media',
-        'USER': 'olebogeng',
-        'PASSWORD': 'QvJpQexQK4c0lae1sWHbXd1uHqUGSwIV',
-        'HOST': 'dpg-cu2nmnpopnds73f1u4p0-a',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(default='postgresql://olebogeng:QvJpQexQK4c0lae1sWHbXd1uHqUGSwIV@dpg-cu2nmnpopnds73f1u4p0-a/qrcodedb_e2x6')
 }
 
 
