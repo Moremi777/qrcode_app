@@ -18,9 +18,6 @@ pymysql.install_as_MySQLdb()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-BASE_URL = "http://127.0.0.1:8000"  # Adjust if necessary for deployment
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -30,7 +27,7 @@ SECRET_KEY = 'django-insecure-s%2he=yt^2hk_f1-gsac9krl3il(e(c5l+#mv29r&0*e(zg8+s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'https://qr-media.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -84,7 +81,14 @@ WSGI_APPLICATION = 'qr_media_viewer.wsgi.application'
 import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.config(default='postgresql://olebogeng:QvJpQexQK4c0lae1sWHbXd1uHqUGSwIV@dpg-cu2nmnpopnds73f1u4p0-a/qrcodedb_e2x6')
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT', 5432),
+    }
 }
 
 
@@ -136,3 +140,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
