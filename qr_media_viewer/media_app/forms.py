@@ -1,7 +1,7 @@
 from django import forms
-from .models import MediaUpload
+from .models import Media
 
-class MediaFileForm(forms.ModelForm):
+class MediaUploadForm(forms.ModelForm):
     class Meta:
-        model = MediaUpload
-        fields = ['media', 'qr_code']
+        model = Media
+        fields = ['title', 'file']

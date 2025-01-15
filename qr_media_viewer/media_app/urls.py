@@ -1,16 +1,10 @@
-# urls.py
-
 from django.urls import path
 from . import views
-from django.urls import re_path
-from . import views
-from django.conf import settings
 from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('media/<str:media_name>/', views.media_display, name='media_display'),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('', views.landing_page, name='landing_page'),
+    path('upload/', views.media_upload, name='media_upload'),
+    path('media/<int:media_id>/', views.media_display, name='media_display'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

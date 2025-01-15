@@ -1,0 +1,185 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Display</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        header .logo img {
+            width: 50px;
+            margin-right: 10px;
+        }
+        header h1 {
+            font-size: 28px;
+        }
+
+        /* Container Styles */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        /* Media Content Styles */
+        .media-content {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .media-content img, .media-content video, .media-content iframe {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .media-content a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .media-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* File Info Styles */
+        .file-info {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .file-info p {
+            margin: 5px 0;
+        }
+
+        /* QR Code Styles */
+        .qr-code {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .qr-code img {
+            width: 150px;
+            height: 150px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 30px;
+        }
+        footer nav a {
+            color: #bdc3c7;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer nav a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Logo">
+            <h1>QR Media Generator</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Uploaded Media</h2>
+
+        {% if media_instance %}
+            <div class="media-content">
+                <h3>Media File Preview:</h3>
+                {% if media_instance.media.url|lower|slice:"-4:" == ".jpg" or media_instance.media.url|lower|slice:"-5:" == ".jpeg" or media_instance.media.url|lower|slice:"-4:" == ".png" %}
+                    <img src="{{ media_instance.media.url }}" alt="Media Image">
+                {% elif media_instance.media.url|lower|slice:"-4:" == ".mp4" %}
+                    <video controls>
+                        <source src="{{ media_instance.media.url }}" type="video/mp4">
+                    </video>
+                {% else %}
+                    <p>Unsupported media type.</p>
+                {% endif %}
+            </div>
+        {% else %}
+            <p>Media not found.</p>
+        {% endif %}
+        
+            <p><a href="{{ media_instance.media.url }}" target="_blank">Download Media</a></p>
+        </div>
+        
+        <!-- File Information -->
+        <div class="file-info">
+            <p><strong>File Name:</strong> {{ media_instance.media.name }}</p>
+            <p><strong>File Size:</strong> {{ media_instance.media.size|filesizeformat }}</p>
+        </div>
+
+        <!-- QR Code Section -->
+        {% if media_instance.qr_code %}
+        <div class="qr-code">
+            <h3>Scan to Access:</h3>
+            <img src="{{ media_instance.qr_code.url }}" alt="QR Code">
+        </div>
+        {% else %}
+            <p style="text-align: center;">No media file found.</p>
+        {% endif %}
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Media Display. All Rights Reserved.</p>
+        <nav>
+            <a href="#">Olebogeng Moremi</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </nav>
+    </footer>
+</body>
+</html>
