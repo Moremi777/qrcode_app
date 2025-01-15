@@ -8,24 +8,21 @@ def home(request):
     if request.method == 'POST':
         form = MediaFileForm(request.POST, request.FILES)
         if form.is_valid():
-            # Save form and generate QR code
             media_instance = form.save()
-            generate_qr_code(media_instance)  # Generate QR code based on the uploaded media
-
-            # Get the QR code URL and media name
-            qr_code_url = media_instance.qr_code.url
-            media_name = media_instance.media.name  # Get the media name for the URL
-
-            return render(request, 'index.html', {'form': form, 'qr_code_url': qr_code_url, 'media_name': media_name})
-
+            return render(request, 'index.html', {
+                'form': form,
+                'qr_code_url': media_instance.qr_code.url,
+                'media_name': media_instance.media.name,
+            })
     else:
         form = MediaFileForm()
 
     return render(request, 'index.html', {'form': form})
 
 
-from django.views.generic.detail import DetailView
+def display_media(request, media_name):
+    # Decode the media_name (which is URL-encoded) and fetch the MediaFile instance
+    media_instance = get_object_or_404(MediaFile, media__icontains=media_name)
 
-class MediaDetailView(DetailView):
-    model = MediaFile
-    template_name = 'media_display.html'
+    # Render the media_display.html template with the media_instance
+    return render(request, 'media_display.html', {'media_instance': media_instance})

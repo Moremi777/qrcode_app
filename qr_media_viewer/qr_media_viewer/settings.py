@@ -42,7 +42,6 @@ CORS_ALLOWED_ORIGINS = [
     'https://qr-media.onrender.com',
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -153,7 +152,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
