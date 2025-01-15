@@ -1,5 +1,5 @@
 from django import forms
-from .models import MediaFile
+from .models import MediaUpload
 
 class MediaFileForm(forms.ModelForm):
     class Meta:

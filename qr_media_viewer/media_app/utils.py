@@ -2,7 +2,7 @@ import qrcode
 from django.core.files.base import ContentFile
 from io import BytesIO
 from django.conf import settings
-from .models import MediaFile
+from .models import MediaUpload
 
 def generate_qr_code(media_instance):
     # Generate the URL for the uploaded media
