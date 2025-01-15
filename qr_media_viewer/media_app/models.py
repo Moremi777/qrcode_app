@@ -11,9 +11,15 @@ class MediaFile(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:  # Only generate QR code when the instance is created
-            url = reverse('media_display', kwargs={'media_name': self.file_name})  # Adjust URL to your needs
+            if not self.file_name:  # Check if file_name is empty or None
+                raise ValueError("File name cannot be empty")
+
+            # Generate the URL for the QR code
+            url = reverse('media_display', kwargs={'media_name': self.file_name})
+
             qr_code_image = self.generate_qr_code(url)
             self.qr_code.save(f'{self.file_name}_qr.png', qr_code_image, save=False)
+
         super(MediaFile, self).save(*args, **kwargs)
 
     def generate_qr_code(self, data):
