@@ -23,10 +23,8 @@ def home(request):
 from django.shortcuts import render
 from .models import MediaUpload
 
+
 def media_display(request, media_name):
-    try:
-        media_instance = MediaUpload.objects.get(file_name=media_name)
-    except MediaFile.DoesNotExist:
-        return render(request, 'error.html', {'message': 'Media not found.'})
-    
-    return render(request, 'media_display.html', {'media_instance': media_instance})
+    # Retrieve media object based on media_name
+    media = MediaUpload.objects.get(file_name=media_name)
+    return render(request, 'media_display.html', {'media': media})

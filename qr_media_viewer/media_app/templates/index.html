@@ -163,7 +163,7 @@
             <img src="{{ qr_code_url }}" alt="QR Code" />
             
             <div class="qr-link">
-                <p>Or click <a href="{% url 'display_media' media_name=media_name|urlencode %}" target="_blank">here</a> to view the media.</p>
+                <a href="{% url 'display_media' media_name=media.file_name %}">View Media</a>
             </div>
             
             <div class="qr-share">
