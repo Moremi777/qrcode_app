@@ -19,6 +19,18 @@ def home(request):
 
     return render(request, 'index.html', {'form': form})
 
+from django.shortcuts import render
+from django.conf import settings
+import os
+
+def display_media(request, media_name):
+    media_path = os.path.join(settings.MEDIA_ROOT, media_name)
+    if os.path.exists(media_path):
+        with open(media_path, 'rb') as media_file:
+            # Handle file response or display media
+            return HttpResponse(media_file.read(), content_type="image/jpeg")
+    return HttpResponseNotFound("Media not found")
+
 
 def display_media(request, media_name):
     # Decode the media_name (which is URL-encoded) and fetch the MediaFile instance
