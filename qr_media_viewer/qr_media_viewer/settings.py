@@ -27,7 +27,20 @@ SECRET_KEY = 'django-insecure-s%2he=yt^2hk_f1-gsac9krl3il(e(c5l+#mv29r&0*e(zg8+s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'qr-media.onrender.com',  # Your live domain
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://qr-media.onrender.com',  # Add your live domain
+]
+
+
+CORS_ALLOWED_ORIGINS = [
+    'https://qr-media.onrender.com',
+]
 
 
 # Application definition
