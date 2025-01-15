@@ -4,7 +4,7 @@ from django.core.files import File
 from django.db import models
 from django.urls import reverse
 
-class MediaFUpload(models.Model):
+class MediaUpload(models.Model):
     file_name = models.CharField(max_length=255)
     media = models.FileField(upload_to='uploads/')  # Example of a file field
     qr_code = models.ImageField(upload_to='qr_codes/', null=True, blank=True)
