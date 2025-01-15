@@ -23,18 +23,22 @@ from django.shortcuts import render
 from django.conf import settings
 import os
 
-def display_media(request, media_name):
-    media_path = os.path.join(settings.MEDIA_ROOT, media_name)
-    if os.path.exists(media_path):
-        with open(media_path, 'rb') as media_file:
-            # Handle file response or display media
-            return HttpResponse(media_file.read(), content_type="image/jpeg")
-    return HttpResponseNotFound("Media not found")
-
+from django.http import Http404
+from .models import MediaFile
 
 def display_media(request, media_name):
-    # Decode the media_name (which is URL-encoded) and fetch the MediaFile instance
-    media_instance = get_object_or_404(MediaFile, media__icontains=media_name)
+    try:
+        # Using filter() to get a QuerySet instead of a single object
+        media_files = MediaFile.objects.filter(file_name=media_name)
 
-    # Render the media_display.html template with the media_instance
-    return render(request, 'media_display.html', {'media_instance': media_instance})
+        # If there are multiple files, you can choose one (e.g., the first one)
+        if media_files.exists():
+            media_file = media_files.first()  # Or any other logic to choose one file
+        else:
+            raise Http404("Media file not found")
+
+        # Handle the media file (e.g., display it)
+        return render(request, 'media_display.html', {'media_file': media_file})
+
+    except MediaFile.DoesNotExist:
+        raise Http404("Media file not found")
