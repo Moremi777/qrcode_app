@@ -19,26 +19,14 @@ def home(request):
 
     return render(request, 'index.html', {'form': form})
 
-from django.shortcuts import render
-from django.conf import settings
-import os
 
-from django.http import Http404
+from django.shortcuts import render
 from .models import MediaFile
 
-def display_media(request, media_name):
+def media_display(request, media_name):
     try:
-        # Using filter() to get a QuerySet instead of a single object
-        media_files = MediaFile.objects.filter(file_name=media_name)
-
-        # If there are multiple files, you can choose one (e.g., the first one)
-        if media_files.exists():
-            media_file = media_files.first()  # Or any other logic to choose one file
-        else:
-            raise Http404("Media file not found")
-
-        # Handle the media file (e.g., display it)
-        return render(request, 'media_display.html', {'media_file': media_file})
-
+        media_instance = MediaFile.objects.get(file_name=media_name)
     except MediaFile.DoesNotExist:
-        raise Http404("Media file not found")
+        return render(request, 'error.html', {'message': 'Media not found.'})
+    
+    return render(request, 'media_display.html', {'media_instance': media_instance})

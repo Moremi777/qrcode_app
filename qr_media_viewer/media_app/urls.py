@@ -8,7 +8,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('media/<path:media_name>/', views.display_media, name='display_media')
+    path('media/<str:media_name>/', views.media_display, name='display_media'),
 ] 
 
 if settings.DEBUG:

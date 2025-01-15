@@ -161,16 +161,17 @@
         <div class="qr-container">
             <h3>Scan this QR Code to access the media:</h3>
             <img src="{{ qr_code_url }}" alt="QR Code" />
-    
+            
             <div class="qr-link">
                 <p>Or click <a href="{% url 'display_media' media_name=media_name|urlencode %}" target="_blank">here</a> to view the media.</p>
             </div>
-    
+            
             <div class="qr-share">
                 <button onclick="shareQRCode()">Share QR Code</button>
             </div>
         </div>
-    {% endif %}
+        {% endif %}
+    
     
 
     </div>
