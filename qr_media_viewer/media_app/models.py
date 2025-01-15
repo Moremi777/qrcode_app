@@ -11,7 +11,7 @@ class MediaFile(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:  # Only generate QR code when the instance is created
-            url = reverse('display_media', kwargs={'media_name': self.file_name})  # Adjust URL to your needs
+            url = reverse('media_display', kwargs={'media_name': self.file_name})  # Adjust URL to your needs
             qr_code_image = self.generate_qr_code(url)
             self.qr_code.save(f'{self.file_name}_qr.png', qr_code_image, save=False)
         super(MediaFile, self).save(*args, **kwargs)
