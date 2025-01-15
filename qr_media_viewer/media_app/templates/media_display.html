@@ -89,6 +89,18 @@
             margin: 5px 0;
         }
 
+        /* QR Code Styles */
+        .qr-code {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .qr-code img {
+            width: 150px;
+            height: 150px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
         /* Footer Styles */
         footer {
             background-color: #2c3e50;
@@ -156,6 +168,14 @@
             <p><strong>File Name:</strong> {{ media_instance.media.name }}</p>
             <p><strong>File Size:</strong> {{ media_instance.media.size|filesizeformat }}</p>
         </div>
+
+        <!-- QR Code Section -->
+        {% if media_instance.qr_code %}
+        <div class="qr-code">
+            <h3>Scan to Access:</h3>
+            <img src="{{ media_instance.qr_code.url }}" alt="QR Code">
+        </div>
+        {% endif %}
         {% else %}
             <p style="text-align: center;">No media file found.</p>
         {% endif %}

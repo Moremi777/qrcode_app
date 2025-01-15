@@ -24,7 +24,8 @@ def home(request):
     return render(request, 'index.html', {'form': form})
 
 
-def display_media(request, media_name):
-    # Retrieve media file by exact match on the file name
-    media = get_object_or_404(MediaFile, media__icontains=media_name)
-    return render(request, 'media_display.html', {'media_instance': media})
+from django.views.generic.detail import DetailView
+
+class MediaDetailView(DetailView):
+    model = MediaFile
+    template_name = 'media_display.html'
