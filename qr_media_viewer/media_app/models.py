@@ -20,7 +20,7 @@ class MediaUpload(models.Model):
             qr_code_image = self.generate_qr_code(url)
             self.qr_code.save(f'{self.file_name}_qr.png', qr_code_image, save=False)
 
-        super(MediaFile, self).save(*args, **kwargs)
+        super(MediaUpload, self).save(*args, **kwargs)
 
     def generate_qr_code(self, data):
         """Generate a QR code image."""
