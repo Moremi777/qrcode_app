@@ -1,8 +1,40 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<div class="text-center">
-    <h2>Welcome to QR Code Generator</h2>
-    <p>Upload your media and generate a QR code for sharing!</p>
-    <a href="{% url 'upload' %}" class="btn btn-primary">Get Started</a>
+<div class="container py-5">
+    <!-- Hero Section -->
+    <div class="row justify-content-center text-center">
+        <div class="col-lg-6">
+            <h2 class="display-4 mb-4 text-primary font-weight-bold">Welcome to the QR Code Generator</h2>
+            <p class="lead mb-4 text-muted">Upload your media and generate a custom QR code for sharing. Simple, fast, and secure!</p>
+            <!-- Call-to-action button -->
+            <a href="{% url 'upload' %}" class="btn btn-lg btn-success px-5 py-3 rounded-pill shadow-lg">Get Started</a>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row text-center mt-5">
+        <div class="col-md-4 mb-4">
+            <div class="icon-circle bg-light p-4 mb-3">
+                <i class="bi bi-file-earmark-arrow-up text-primary" style="font-size: 2rem;"></i>
+            </div>
+            <h4 class="h5">Upload Your Media</h4>
+            <p class="text-muted">Easily upload your files, whether it’s an image, document, or video!</p>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="icon-circle bg-light p-4 mb-3">
+                <i class="bi bi-qr-code text-primary" style="font-size: 2rem;"></i>
+            </div>
+            <h4 class="h5">Generate QR Code</h4>
+            <p class="text-muted">Create a unique QR code that directs users to your media with just a scan.</p>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="icon-circle bg-light p-4 mb-3">
+                <i class="bi bi-share text-primary" style="font-size: 2rem;"></i>
+            </div>
+            <h4 class="h5">Share Easily</h4>
+            <p class="text-muted">Share your generated QR code on any platform effortlessly.</p>
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -1,20 +1,53 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Generator</title>
+    <title>QR Media</title>
+    <link rel="icon" href="{% static 'images/android-chrome-192x192.png' %}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
-    <header class="bg-dark text-white p-3 text-center">
-        <h1>QR Code Generator</h1>
+
+    <!-- Header -->
+    <header class="bg-dark text-white p-3 shadow-sm">
+        <div class="container d-flex justify-content-between align-items-center">
+            <!-- Logo and Title -->
+            <div class="d-flex align-items-center">
+                <img src="{% static 'images/logo.png' %}" alt="QR Media Logo" style="height: 50px; margin-right: 10px;">
+                <h1 class="mb-0">QR Media</h1>
+            </div>
+            <!-- Navigation Bar -->
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'upload' %}">Upload</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
+
+
+    <!-- Main Content -->
     <main class="container mt-4">
         {% block content %}{% endblock %}
     </main>
-    <footer class="bg-dark text-white text-center p-3 mt-5">
-        <p>&copy; 2025 QR Code Generator | All Rights Reserved</p>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <p>&copy; 2025 QR Media | All Rights Reserved</p>
+            <p>Created by <a href="https://moremi777.github.io/virtual_cv/" target="_blank" class="text-orangered text-decoration-none">Olebogeng</a></p>
+        </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
