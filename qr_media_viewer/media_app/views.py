@@ -1,53 +1,33 @@
-import qrcode
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .models import Media
-from .forms import MediaUploadForm
-from django.core.files.storage import default_storage
-from io import BytesIO
-from PIL import Image
+from django.conf import settings
+from .models import MediaFile
+import qrcode
+import os
 
+def index(request):
+    return render(request, 'index.html')
 
-def media_upload(request):
+def upload_media(request):
     if request.method == 'POST':
-        form = MediaUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            # Save the media
-            media = form.save()
+        uploaded_file = request.FILES['file']
+        media = MediaFile(file=uploaded_file)
+        media.save()
 
-            # Generate QR code
-            qr = qrcode.QRCode(
-                version=1,
-                error_correction=qrcode.constants.ERROR_CORRECT_L,
-                box_size=10,
-                border=4,
-            )
-            media_url = request.build_absolute_uri(media.get_absolute_url())  # URL for the media display page
-            qr.add_data(media_url)
-            qr.make(fit=True)
+        # Generate QR Code
+        qr_url = request.build_absolute_uri(f"/media/{media.file}")
+        qr_image = qrcode.make(qr_url)
 
-            # Create image
-            img = qr.make_image(fill='black', back_color='white')
+        qr_path = os.path.join(settings.MEDIA_ROOT, 'qrcodes', f"{media.id}.png")
+        os.makedirs(os.path.dirname(qr_path), exist_ok=True)
+        qr_image.save(qr_path)
 
-            # Save the QR code image
-            qr_code_path = f'qr_codes/{media.id}_qr.png'
-            img.save(default_storage.open(qr_code_path, 'wb'))
+        media.qr_code = f"qrcodes/{media.id}.png"
+        media.save()
 
-            # Update the media instance with the QR code
-            media.qr_code = qr_code_path
-            media.save()
+        return render(request, 'upload.html', {'media': media})
 
-            return redirect('media_display', media_id=media.id)
-    else:
-        form = MediaUploadForm()
+    return render(request, 'upload.html')
 
-    return render(request, 'media_upload.html', {'form': form})
-
-
-def media_display(request, media_id):
-    media = get_object_or_404(Media, id=media_id)
-    return render(request, 'media_display.html', {'media': media})
-
-
-def landing_page(request):
-    return render(request, 'landing_page.html')
+def view_media(request, media_id):
+    media = get_object_or_404(MediaFile, id=media_id)
+    return render(request, 'media.html', {'media': media})

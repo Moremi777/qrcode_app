@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-center mt-5">
+    <h2>Media Viewer</h2>
+    <div class="mt-4">
+        {% if media.file.url.endswith:".jpg" or media.file.url.endswith:".png" or media.file.url.endswith:".jpeg" %}
+        <img src="{{ media.file.url }}" alt="Uploaded Image" class="img-fluid">
+        {% elif media.file.url.endswith:".mp4" or media.file.url.endswith:".mov" %}
+        <video controls class="w-75">
+            <source src="{{ media.file.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        {% elif media.file.url.endswith:".mp3" or media.file.url.endswith:".wav" %}
+        <audio controls class="mt-3">
+            <source src="{{ media.file.url }}" type="audio/mpeg">
+            Your browser does not support the audio tag.
+        </audio>
+        {% else %}
+        <a href="{{ media.file.url }}" target="_blank" class="btn btn-primary mt-3">Download Document</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
