@@ -13,16 +13,21 @@ def upload_media(request):
         media = MediaFile(file=uploaded_file)
         media.save()
 
-        # Generate QR Code
-        qr_url = request.build_absolute_uri(f"/media/{media.file}")
+        # Generate QR Code pointing to the uploaded media file
+        qr_url = request.build_absolute_uri(media.file.url)  # Use media.file.url
         qr_image = qrcode.make(qr_url)
 
-        qr_path = os.path.join(settings.MEDIA_ROOT, 'qrcodes', f"{media.id}.png")
-        os.makedirs(os.path.dirname(qr_path), exist_ok=True)
+        qr_folder = os.path.join(settings.MEDIA_ROOT, 'qrcodes')
+        os.makedirs(qr_folder, exist_ok=True)  # Ensure the directory exists
+        qr_path = os.path.join(qr_folder, f"{media.id}.png")
         qr_image.save(qr_path)
 
+        # Update model with QR code path
         media.qr_code = f"qrcodes/{media.id}.png"
         media.save()
+
+        print(f"QR Code Path: {qr_path}")
+        print(f"QR Code URL: {media.qr_code.url}")
 
         return render(request, 'upload.html', {'media': media})
 

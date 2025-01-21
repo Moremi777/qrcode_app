@@ -7,4 +7,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('upload/', views.upload_media, name='upload'),
     path('media/<int:media_id>/', views.view_media, name='view_media'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]  
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
