@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-s%2he=yt^2hk_f1-gsac9krl3il(e(c5l+#mv29r&0*e(zg8+s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'qr_media_viewer.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',  # Database backend (SQLite in this case)
@@ -110,7 +110,7 @@ DATABASES = {
         'PORT': os.getenv('DATABASE_PORT', 5432),
     }
 }
-'''
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
